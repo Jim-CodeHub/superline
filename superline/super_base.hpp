@@ -38,6 +38,7 @@
 #include <stdlib.h>
 #include <cstring>
 
+
 namespace NS_SUPERLINE{
 
 
@@ -52,8 +53,10 @@ namespace NS_SUPERLINE{
  *	@brief shared memory header information 
  **/
 struct shmhead{
-	int rd_inx = 0 , wr_inx = 0, blocks, *_size = NULL; /**< sizes */
+	int rd_inx , wr_inx, blocks, _size; /**< Size of blocks		   */
 };
+
+union semun { int val; }; 
 
 /**
  *	@brief shared memory information 
@@ -65,8 +68,8 @@ struct shminfo{
 	struct shmhead *m_head;	/**< shared memory header info  	   */
 	char		   *offset; /**< valid data offset in memory 	   */
 	
-	int			sem_rdmtx ; /**< read mutex semaphore		 	   */
-	int			sem_wrmtx ; /**< wrtie mutex semaphore		 	   */
+	int			sem_rdmtx ; /**< read mutex semaphore			   */
+	int			sem_wrmtx ; /**< wrtie mutex semaphore			   */
 	int			sem_1_spc ; /**< blocks space number in sh-memory  */
 	int			sem_0_spc ; /**< empty  space number in sh-memory  */
 };
@@ -75,10 +78,14 @@ struct shminfo{
 *	@brief super_base class and function set 
  **/
 class super_base{
-	protected:
-		super_base(const char *pathname, int proj_id, int blocks, size_t _size = 1024*1024);
-
+	public:
 		void free(void);
+
+	protected:
+		super_base(const char *pathname, int proj_id, int blocks, int _size);
+		~super_base();
+
+		void init(const char *pathname, int proj_id, int blocks, int _size);
 
 	protected:
 		void P(int semid);

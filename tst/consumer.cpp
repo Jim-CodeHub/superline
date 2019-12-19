@@ -7,11 +7,20 @@ using namespace std;
 
 int main(void)
 {
-	class superline_server ss("/home/jim/superline/Makefile", 111, 10, 1024*1024);
+	class superline_server ss("/home/jim/Project/superline/Makefile", 111, 10, 100);
 
-	char *buff[1024];
+	char buff[1024];
 
-	cout << ss.recv(buff) <<endl;
+	int i = 0;
+	while (1)
+	{
+		cout << "consuming..." << i++ <<endl;
+		cout << (char *)ss.recv(buff) <<endl;
+
+		sleep(1); /**< Slow consum test */
+	}
+
+	ss.free();
 
 	return 0;
 }

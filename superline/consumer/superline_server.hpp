@@ -33,13 +33,16 @@ namespace NS_SUPERLINE{
 
 /**
  *	@brief superline server class and function set 
+ *	@note  The server can be called with multi-process (in different object)
  **/
 class superline_server : public super_base{
 	public:
-		superline_server(const char *pathname, int proj_id, int blocks, size_t _size)
+		superline_server(const char *pathname, int proj_id, int blocks, int _size)
 			:super_base(pathname, proj_id, blocks, _size){};
 
 		void *recv(void *data);
+
+	private:
 };
 
 

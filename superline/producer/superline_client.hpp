@@ -33,12 +33,15 @@ namespace NS_SUPERLINE{
 
 /**
  *	@brief superline client class and function set 
+ *	@note  The client can be called with multi-process (in different object)
  **/
 class superline_client : public super_base{
 	public:
 		superline_client(const char *pathname, int proj_id):super_base(pathname, proj_id, 0, 0){};
 
-		void send(const void *data, size_t _size);
+		void send(const void *data);
+
+	private:
 };
 
 
