@@ -1,5 +1,5 @@
 
-OBJS    =
+OBJS    = consumer producer 
 SUBDIRS = 
 NAMEDIR = $(shell dirname `pwd`)
  
@@ -16,7 +16,7 @@ NAMEDIR = $(shell dirname `pwd`)
 all:
 	for i in $(OBJS);													   						 \
 	do															    	   						 \
-		$(CXX) $(CXXFLAGS) "$$i".cpp -L$(NAMEDIR) -lsocketcd -Wl,-rpath=$(NAMEDIR) -o "$$i".out; \
+		$(CXX) $(CXXFLAGS) "$$i".cpp -L$(NAMEDIR) -lsuperline -Wl,-rpath=$(NAMEDIR) -o "$$i".out; \
 	done
 
 .PHONY:clean

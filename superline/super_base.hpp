@@ -10,9 +10,7 @@
  *															|-
  *														 consumer
  *
- * @note	1. Single data block read and write are mutually-exclusive 
- *			2. The overall data block transfer is asyn
- *			3. Transferring a single data block only or fast reads and writes results in synchronization 
+ * @note	Same Single data block read and write are mutually-exclusive 
  *
  * Copyright (c) 2019-2019 Jim Zhang 303683086@qq.com
  *------------------------------------------------------------------------------------------------------------------
@@ -34,7 +32,11 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <sys/sem.h>
-
+#include <unistd.h>
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <cstring>
 
 namespace NS_SUPERLINE{
 
@@ -50,18 +52,21 @@ namespace NS_SUPERLINE{
  *	@brief shared memory header information 
  **/
 struct shmhead{
-	int rd_inx, wr_inx, blocks, _size; /**< Size of blocks		   */
+	int rd_inx = 0 , wr_inx = 0, blocks, *_size = NULL; /**< sizes */
 };
 
 /**
  *	@brief shared memory information 
  **/
 struct shminfo{
-	struct shmhead *m_head;	/**< shared memory header infor  	   */
+	key_t		   ipc_key; /**< IPC key						   */
+	int				shmid ; /**< shared memory ID			 	   */
+
+	struct shmhead *m_head;	/**< shared memory header info  	   */
 	char		   *offset; /**< valid data offset in memory 	   */
 	
-	int				shmid ; /**< shared memory ID			 	   */
-	int			sem_mutex ; /**< mutex semaphore			 	   */
+	int			sem_rdmtx ; /**< read mutex semaphore		 	   */
+	int			sem_wrmtx ; /**< wrtie mutex semaphore		 	   */
 	int			sem_1_spc ; /**< blocks space number in sh-memory  */
 	int			sem_0_spc ; /**< empty  space number in sh-memory  */
 };
@@ -70,8 +75,17 @@ struct shminfo{
 *	@brief super_base class and function set 
  **/
 class super_base{
-	public:
-		super_base();
+	protected:
+		super_base(const char *pathname, int proj_id, int blocks, size_t _size = 1024*1024);
+
+		void free(void);
+
+	protected:
+		void P(int semid);
+		void V(int semid);
+
+	protected:
+		struct shminfo _shminfo; 
 };
 
 
