@@ -43,3 +43,19 @@ void *superline_server::recv(void *data)
 	return data;
 }
 
+/**
+ *	@brief	    Set subscriber_server deamon 
+ *	@param[in]  message - true/false 
+ *	@param[out] None
+ *	@return		None
+ *	@note	    If param message is false, some message will still work on currunt terminal	
+ *				, which is helpful for debugging
+ **/
+void superline_server::set_deamon(bool message)
+{
+	int ret = daemon(0, message);
+
+	if (-1 == ret) {perror("Socket deamon set failure"); exit(-1);}
+
+	return;
+}
