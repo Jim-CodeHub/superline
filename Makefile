@@ -16,8 +16,6 @@ CXXFLAGS       += 	-Wall
 CXXFLAGS	   +=   -I$(CURDIR)
 #CXXFLAGS		+=  -g
 
-LD_CXXFLAGS	   +=   -I$(CURDIR)
-
 SUBDIRS 		=   $(TARGET) 
 
 export CXX CXXFLAGS TARGET
@@ -33,7 +31,7 @@ export CXX CXXFLAGS TARGET
 
 all:$(SUBDIRS)
 	ar -rcs $(PROJECT).a $(shell find ./$(TARGET) -name "*.o")
-	$(CXX) -fPIC -shared $(shell find ./$(TARGET) -name "*.cpp") $(LD_CXXFLAGS) -o $(PROJECT).so
+	$(CXX) -fPIC -shared $(CXXFLAGS) $(shell find ./$(TARGET) -name "*.cpp") -o $(PROJECT).so
 
 $(SUBDIRS):
 	$(MAKE) -C $@	
