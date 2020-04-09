@@ -171,7 +171,7 @@ _LOAD:
  **/
 void super_base::P(int semid)
 {
-	struct sembuf s[1] = {0, -1, 0};
+	struct sembuf s[1] = {{0, -1, 0}};
 
 	if (semop(semid, s, 1) == -1) { perror("semop"); exit(-1); }
 
@@ -186,7 +186,7 @@ void super_base::P(int semid)
  **/
 void super_base::V(int semid)
 {
-	struct sembuf s[1] = {0,  1, 0};
+	struct sembuf s[1] = {{0,  1, 0}};
 
 	if (semop(semid, s, 1) == -1) { perror("semop"); exit(-1); }
 
