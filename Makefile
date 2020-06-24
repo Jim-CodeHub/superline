@@ -64,4 +64,5 @@ clean:
 		$(MAKE) -C $$dir clean;		\
 	done
 	@rm -rf $(shell find ./ -name "*.o")
+	@rm -rf $(PROJECT)*
 

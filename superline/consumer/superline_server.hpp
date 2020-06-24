@@ -42,7 +42,7 @@ class superline_server : public super_base{
 
 		void *recv(void *data);
 
-		void set_deamon(bool message);
+		void set_daemon(bool message);
 
 	private:
 };

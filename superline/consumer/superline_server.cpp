@@ -48,10 +48,10 @@ void *superline_server::recv(void *data)
  *	@param[in]  message - true/false 
  *	@param[out] None
  *	@return		None
- *	@note	    If param message is false, some message will still work on currunt terminal	
+ *	@note	    If param message is true, some message will still work on currunt terminal	
  *				, which is helpful for debugging
  **/
-void superline_server::set_deamon(bool message)
+void superline_server::set_daemon(bool message)
 {
 	int ret = daemon(0, message);
 
