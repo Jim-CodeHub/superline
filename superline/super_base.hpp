@@ -79,7 +79,13 @@ struct shminfo{
  **/
 class super_base{
 	public:
-		void free(void);
+		void	 free(void);
+
+		int get_shmid(void);
+		int get_semrd(void);
+		int get_semwr(void);
+		int get_sems1(void);
+		int get_sems0(void);
 
 	protected:
 		super_base(const char *pathname, int proj_id, int blocks, int _size);

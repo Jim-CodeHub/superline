@@ -9,6 +9,12 @@ int main(void)
 {
 	class superline_client sc("/home/jim/Project/superline/Makefile", 111);
 
+	cout << sc.get_shmid() << "    ";
+	cout << sc.get_semrd() << "    ";
+	cout << sc.get_semwr() << "    ";
+	cout << sc.get_sems1() << "    ";
+	cout << sc.get_sems0() << "\r\n";
+
 	string str = "hello consumer";
 
 	int i = 0;

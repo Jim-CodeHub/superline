@@ -1,5 +1,5 @@
 
-OBJS    = consumer producer 
+OBJS    = consumer producer
 SUBDIRS = 
 NAMEDIR = $(shell dirname `pwd`)
  

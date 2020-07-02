@@ -226,3 +226,43 @@ void super_base::free(void)
 	return;
 }
 
+/**
+ *	@brief		 Get shared memory id 
+ *	@param[in]	 None 
+ *	@param[out]	 None
+ *	@return		 Shared memory id
+ **/
+int super_base::get_shmid(void) { return _shminfo.shmid;		}
+
+/**
+ *	@brief		 Get read semphare id 
+ *	@param[in]	 None 
+ *	@param[out]	 None
+ *	@return		 Read semphare id 
+ **/
+int super_base::get_semrd(void) { return _shminfo.sem_rdmtx;	}
+
+/**
+ *	@brief		 Get write semphare id 
+ *	@param[in]	 None 
+ *	@param[out]	 None
+ *	@return		 Write semphare id 
+ **/
+int super_base::get_semwr(void) { return _shminfo.sem_wrmtx;	}
+
+/**
+ *	@brief		 Get block semphare id 
+ *	@param[in]	 None 
+ *	@param[out]	 None
+ *	@return		 Block semphare id 
+ **/
+int super_base::get_sems1(void) { return _shminfo.sem_1_spc;	}
+
+/**
+ *	@brief		 Get empty semphare id 
+ *	@param[in]	 None 
+ *	@param[out]	 None
+ *	@return		 Empty semphare id 
+ **/
+int super_base::get_sems0(void) { return _shminfo.sem_0_spc;	}
+

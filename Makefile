@@ -5,6 +5,7 @@
 #-------------------------------------------------------------------------------------------------------
 
 TARGET		    =   superline
+VERSION			=	0.1
 PROJECT			=   lib$(TARGET)
 
 CXX				=	g++
@@ -31,7 +32,8 @@ export CXX CXXFLAGS TARGET
 
 all:$(SUBDIRS)
 	ar -rcs $(PROJECT).a $(shell find ./$(TARGET) -name "*.o")
-	$(CXX) -fPIC -shared $(CXXFLAGS) $(shell find ./$(TARGET) -name "*.cpp") -o $(PROJECT).so
+	$(CXX) -fPIC -shared $(CXXFLAGS) $(shell find ./$(TARGET) -name "*.cpp") -o $(PROJECT).so.$(VERSION)
+	ln -s $(PROJECT).so.$(VERSION) $(PROJECT).so 
 
 $(SUBDIRS):
 	$(MAKE) -C $@	
@@ -44,7 +46,7 @@ install:
 	$(shell if [ ! -d $(--PREFIX)/include ]; then mkdir $(--PREFIX)/include; fi;)
 	$(shell if [ ! -d $(--PREFIX)/lib ]; then mkdir $(--PREFIX)/lib; fi;)
 	@cp $(TARGET) $(--PREFIX)/include -rf
-	@mv ./$(PROJECT).a ./$(PROJECT).so $(--PREFIX)/lib 
+	@mv ./$(PROJECT).a ./$(PROJECT).so.* $(--PREFIX)/lib 
 	@rm -rf `find ./$(--PREFIX)/include -name "*.o"`
 	@rm -rf `find ./$(--PREFIX)/include -name "*.cpp"`
 	@rm -rf `find ./$(--PREFIX)/include -name "Makefile"`
