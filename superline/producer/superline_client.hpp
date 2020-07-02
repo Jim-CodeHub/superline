@@ -39,7 +39,7 @@ class superline_client : public super_base{
 	public:
 		superline_client(const char *pathname, int proj_id):super_base(pathname, proj_id, 0, 0){};
 
-		void send(const void *data);
+		void send( const void *data, int size );
 
 	private:
 };

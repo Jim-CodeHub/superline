@@ -22,17 +22,20 @@ using namespace NS_SUPERLINE;
 /**
  *	@brief		 Send data to superline server (consumer) 
  *	@param[in]	 data 
+ *	@param[in]	 size	-	size of the data	 
  *	@param[out]  None 
  *	@return		 None
  *	@note		 1. The client will block if superline has already full
  *				 2. *** EACH DATA SIZE SHALL NOT LARGER THAN BLOCK SIZE
  **/
-void superline_client::send(const void *data)
+void superline_client::send( const void *data, int size )
 {
 	P(_shminfo.sem_0_spc); /**< Wating for free space on superline */
 	P(_shminfo.sem_wrmtx); /**< Multi-process mutex lock */
 
-	memmove(_shminfo.offset + _shminfo.m_head->wr_inx * _shminfo.m_head->_size, data, _shminfo.m_head->_size);
+	int _size = (size > _shminfo.m_head->_size)?(_shminfo.m_head->_size):(size);
+	
+	memmove(_shminfo.offset + _shminfo.m_head->wr_inx * _shminfo.m_head->_size, data, _size);
 
 	_shminfo.m_head->wr_inx += 1;
 	_shminfo.m_head->wr_inx %= (_shminfo.m_head->blocks); /**< Loop write */

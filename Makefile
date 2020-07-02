@@ -27,7 +27,7 @@ export CXX CXXFLAGS TARGET
 #																									   #
 #-------------------------------------------------------------------------------------------------------
 
-.PHONY: all clean install $(SUBDIRS) tst tags
+.PHONY: all clean install $(SUBDIRS) demo tags
 
 all:$(SUBDIRS)
 	ar -rcs $(PROJECT).a $(shell find ./$(TARGET) -name "*.o")
@@ -36,8 +36,8 @@ all:$(SUBDIRS)
 $(SUBDIRS):
 	$(MAKE) -C $@	
 
-tst:
-	$(MAKE) -C tst
+demo:
+	$(MAKE) -C demo 
 
 install:
 	$(shell if [ ! -d $(--PREFIX) ]; then mkdir $(--PREFIX); fi;)

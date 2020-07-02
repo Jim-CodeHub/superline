@@ -15,7 +15,7 @@ int main(void)
 	while (1)
 	{
 		cout << "Producting..." << i++ << endl;
-		sc.send(str.c_str());
+		sc.send(str.c_str(), str.size());
 
 		usleep(5000); /**< Fast producting test */
 	}
